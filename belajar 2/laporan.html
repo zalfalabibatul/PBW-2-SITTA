@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan</title>
+    <style>
+        * { box-sizing: border-box; font-family: Segoe UI, Arial, sans-serif }
+        body { margin: 0; padding: 18px; background: linear-gradient(180deg, #edf3ff, #e7effa); color: #1f2f4d }
+        .app { max-width: 1000px; margin: auto; background: #fff; border: 1px solid #dbe6fa; border-radius: 14px; box-shadow: 0 14px 34px rgba(21, 39, 84, .12); overflow: hidden }
+        .header { background: linear-gradient(135deg, #001a5c, #1f52b7); color: #fff; padding: 20px }
+        .header h1 { margin: 0 0 4px; font-size: 24px }
+        .content { padding: 16px }
+        .report-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .selector-box {
+            border: 1px solid #dbe6fa;
+            border-radius: 12px;
+            padding: 14px;
+            background: #f7faff;
+        }
+        .selector-box h3 { margin: 0 0 6px; color: #1f3566 }
+        .selector-box p { margin: 0 0 12px; color: #5f6f8e; font-size: 14px }
+        .selector-row button {
+            border: none;
+            border-radius: 10px;
+            padding: 10px 14px;
+            background: #1745a7;
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .actions { margin-top: 16px }
+        .actions a { text-decoration: none; color: #1a3a78; font-weight: 700 }
+        @media (max-width: 760px) { .report-grid { grid-template-columns: 1fr } }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <div class="header">
+            <h1>Laporan</h1>
+            <div>Pusat akses laporan bahan ajar SITTA</div>
+        </div>
+        <div class="content">
+            <div class="report-grid">
+                <div class="selector-box">
+                    <h3>Monitoring List Bahan Ajar</h3>
+                    <p>Memantau stok, safety stock, dan daftar item yang perlu reorder.</p>
+                    <div class="selector-row">
+                        <button type="button" onclick="window.location.href='monitoring-bahan-ajar.html'">Buka Monitoring</button>
+                    </div>
+                </div>
+                <div class="selector-box">
+                    <h3>Rekap Bahan Ajar</h3>
+                    <p>Melihat ringkasan total judul, qty, dan nilai stok per UT-Daerah.</p>
+                    <div class="selector-row">
+                        <button type="button" onclick="window.location.href='rekap-bahan-ajar.html'">Buka Rekap</button>
+                    </div>
+                </div>
+            </div>
+            <div class="actions"><a href="dashboard.html">&larr; Kembali ke Dashboard</a></div>
+        </div>
+    </div>
+</body>
+</html>

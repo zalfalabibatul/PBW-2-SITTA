@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SITTA</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="assets/UT.png" type="image/x-icon">
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+</head>
+
+<body>
+    <div class="video-background">
+        <video autoplay muted loop playsinline id="bg-video">
+            <source src="assets/new-bg.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="wrapper">
+        <form action="">
+            <img src="assets/UT.png" alt="" class="logo-login">
+            <h2>SITTA</h2>
+            <!-- <h3>Sistem Informasi Tiras dan Transaksi</h3>
+            <h3>Bahan Ajar Universitas Terbuka</h3> -->
+            <div class="input-group">
+
+                <i class="input-logo" data-feather="user"></i>
+                <input type="text" id="emai" placeholder="Email" required>
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" placeholder="Password">
+                <i class="input-logo" data-feather="lock"></i>
+            </div>
+            <div class="remember-forgot">
+                <label id="checkbox"><input type="checkbox"> ingat saya </label>
+                <a class="forget" id="open-forgot" href="#">Forgot password ?</a>
+            </div>
+            <button type="submit" class="login">Login</button>
+            <div class="register-link">
+                <h4>Belum Punya Akun?<a id="open-register" href="#"> Daftar Sekarang</a></h4>
+            </div>
+        </form>
+    </div>
+
+    <div id="forgot-modal" class="auth-modal">
+        <div class="auth-modal-card">
+            <h3>Reset Password</h3>
+            <p>Masukkan email yang terdaftar.</p>
+            <input id="forgot-email" type="email" placeholder="Email">
+            <div class="auth-modal-actions">
+                <button id="close-forgot" type="button" class="btn-cancel">Batal</button>
+                <button id="submit-forgot" type="button" class="btn-submit">Kirim</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="register-modal" class="auth-modal">
+        <div class="auth-modal-card register">
+            <h3>Buat Akun</h3>
+            <p>Isi data berikut untuk membuat akun baru.</p>
+            <input id="reg-nama" type="text" placeholder="Nama lengkap">
+            <input id="reg-email" type="email" placeholder="Email">
+            <input id="reg-password" type="password" placeholder="Password">
+            <div class="auth-modal-actions">
+                <button id="close-register" type="button" class="btn-cancel">Batal</button>
+                <button id="submit-register" type="button" class="btn-submit">Daftar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feather Icons -->
+    <script>
+        feather.replace();
+    </script>
+
+    <!-- javascript -->
+    <script src="js/data.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
