@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SITTA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="assets/UT.png" type="image/x-icon">
+</head>
+
+<body class="dashboard-body">
+    <div class="dashboard-layout">
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-brand" style="justify-content:space-between;">
+                <div style="display:flex;align-items:center;gap:10px;">
+                    <img src="assets/UT.png" alt="Logo Universitas Terbuka">
+                    <strong>SITTA</strong>
+                </div>
+                <i class="fas fa-angles-left" style="font-size:20px;opacity:.85;"></i>
+            </div>
+
+            <div class="sidebar-search">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Cari Menu...">
+            </div>
+
+            <nav class="sidebar-menu">
+                <a href="#" class="active"><i class="fas fa-house"></i> Beranda</a>
+                <a href="stok.html"><i class="fas fa-box"></i> Informasi Bahan Ajar</a>
+                <a href="tracking.html"><i class="fas fa-truck-fast"></i> Tracking Pengiriman</a>
+                <a href="histori-transaksi.html"><i class="fas fa-clock-rotate-left"></i> Histori Transaksi Bahan Ajar</a>
+                <a href="laporan.html"><i class="fas fa-file-lines"></i> Laporan</a>
+            </nav>
+
+            <button class="sidebar-logout" onclick="window.location.href='index.html'">
+                <i class="fas fa-right-from-bracket"></i> Logout
+            </button>
+        </aside>
+
+        <main class="dashboard-main">
+            <section class="dashboard-top">
+                <h2 id="greeting"></h2>
+                <p>Selamat datang di Sistem Informasi Tracking dan Transaksi Ajar (SITTA)</p>
+            </section>
+        </main>
+    </div>
+</body>
+<script src="js/data.js"></script>
+<script src="js/script.js"></script>
+
+</html>

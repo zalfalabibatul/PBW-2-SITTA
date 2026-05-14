@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoring List Bahan Ajar</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Segoe UI, Arial, sans-serif
+        }
+        
+        body {
+            margin: 0;
+            padding: 18px;
+            background: linear-gradient(180deg, #edf3ff, #e7effa);
+            color: #1f2f4d
+        }
+        
+        .app {
+            max-width: 1200px;
+            margin: auto;
+            background: #fff;
+            border: 1px solid #dbe6fa;
+            border-radius: 14px;
+            box-shadow: 0 14px 34px rgba(21, 39, 84, .12);
+            overflow: hidden
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #001a5c, #1f52b7);
+            color: #fff;
+            padding: 20px
+        }
+        
+        .header h1 {
+            margin: 0 0 4px;
+            font-size: 24px
+        }
+        
+        .content {
+            padding: 16px
+        }
+        
+        .toolbar {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr 1fr auto;
+            gap: 10px;
+            margin-bottom: 12px
+        }
+        
+        input,
+        select,
+        button {
+            border-radius: 10px;
+            border: 1px solid #d5def2;
+            padding: 10px 11px;
+            font-size: 14px
+        }
+        
+        button {
+            cursor: pointer;
+            font-weight: 700;
+            background: #1745a7;
+            color: #fff;
+            border: none
+        }
+        
+        .table-wrap {
+            overflow: auto;
+            border: 1px solid #dde7fa;
+            border-radius: 12px
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 960px
+        }
+        
+        th,
+        td {
+            border-bottom: 1px solid #edf1fa;
+            padding: 10px;
+            font-size: 13px;
+            text-align: left
+        }
+        
+        th {
+            background: #f3f7ff;
+            color: #32486f;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: .02em
+        }
+        
+        .status {
+            display: inline-block;
+            border-radius: 999px;
+            padding: 4px 10px;
+            font-weight: 700;
+            font-size: 12px
+        }
+        
+        .low {
+            background: #ffedd5;
+            color: #c2410c
+        }
+        
+        .empty {
+            padding: 16px;
+            text-align: center;
+            color: #6b7b97
+        }
+        
+        .summary {
+            margin-top: 12px;
+            color: #43577f;
+            font-size: 13px;
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap
+        }
+        
+        .actions {
+            margin-top: 14px
+        }
+        
+        .actions a {
+            text-decoration: none;
+            color: #1a3a78;
+            font-weight: 700
+        }
+        
+        @media (max-width: 840px) {
+            .toolbar {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <div class="header">
+            <h1>Monitoring List Bahan Ajar</h1>
+            <div>Pemantauan stok, safety stock, dan kebutuhan reorder</div>
+        </div>
+        <div class="content">
+            <div class="toolbar">
+                <input id="keyword" type="text" placeholder="Cari kode / judul">
+                <select id="upbjjFilter" aria-label="Filter UT-Daerah" title="Filter UT-Daerah"><option value="">Semua UT-Daerah</option></select>
+                <select id="statusFilter" aria-label="Filter kondisi stok" title="Filter kondisi stok">
+                    <option value="">Semua Kondisi</option>
+                    <option value="low">Perlu Reorder (qty &lt; safety)</option>
+                </select>
+                <button id="resetBtn" type="button">Reset</button>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Kode</th>
+                            <th>Judul</th>
+                            <th>UT-Daerah</th>
+                            <th>Qty</th>
+                            <th>Safety</th>
+                            <th>Selisih</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rows"></tbody>
+                </table>
+            </div>
+            <div id="summary" class="summary"></div>
+            <div class="actions"><a href="dashboard.html">&larr; Kembali ke Dashboard</a></div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script>
+        const rows = document.getElementById("rows");
+        const summary = document.getElementById("summary");
+        const keywordInput = document.getElementById("keyword");
+        const upbjjFilter = document.getElementById("upbjjFilter");
+        const statusFilter = document.getElementById("statusFilter");
+        const resetBtn = document.getElementById("resetBtn");
+
+        function getData() {
+            const raw = localStorage.getItem("stokBahanAjarVue");
+            const fallback = () => JSON.parse(JSON.stringify(window.dataStokBahanAjar || []));
+            if (!raw) return fallback();
+            try {
+                const parsed = JSON.parse(raw);
+                return Array.isArray(parsed) ? parsed : fallback();
+            } catch (e) {
+                return fallback();
+            }
+        }
+
+        function fillUpbjjOptions(data) {
+            const options = [...new Set(data.map(item => item.upbjj).filter(Boolean))].sort();
+            upbjjFilter.innerHTML = '<option value="">Semua UT-Daerah</option>' + options.map(item => `<option value="${item}">${item}</option>`).join("");
+        }
+
+        function render() {
+            let data = [...getData()];
+            const keyword = keywordInput.value.trim().toLowerCase();
+            const upbjj = upbjjFilter.value;
+            const status = statusFilter.value;
+
+            if (keyword) {
+                data = data.filter(item => {
+                    const k = String(item.kode || "").toLowerCase();
+                    const j = String(item.judul || "").toLowerCase();
+                    return k.includes(keyword) || j.includes(keyword);
+                });
+            }
+            if (upbjj) data = data.filter(item => item.upbjj === upbjj);
+            if (status === "low") data = data.filter(item => Number(item.qty) < Number(item.safety));
+
+            const lowCount = data.filter(item => Number(item.qty) < Number(item.safety)).length;
+            const totalQty = data.reduce((sum, item) => sum + Number(item.qty || 0), 0);
+
+            if (data.length === 0) {
+                rows.innerHTML = '<tr><td colspan="7" class="empty">Data monitoring tidak ditemukan.</td></tr>';
+            } else {
+                rows.innerHTML = data.map(item => {
+                    const diff = Number(item.qty) - Number(item.safety);
+                    const isLow = diff < 0;
+                    return `
+                        <tr>
+                            <td>${item.kode}</td>
+                            <td>${item.judul}</td>
+                            <td>${item.upbjj || "-"}</td>
+                            <td>${item.qty}</td>
+                            <td>${item.safety}</td>
+                            <td>${diff}</td>
+                            <td>${isLow ? '<span class="status low">Perlu Reorder</span>' : "Aman"}</td>
+                        </tr>
+                    `;
+                }).join("");
+            }
+
+            summary.innerHTML = `
+                <span><strong>Total Item:</strong> ${data.length}</span>
+                <span><strong>Total Qty:</strong> ${totalQty}</span>
+                <span><strong>Perlu Reorder:</strong> ${lowCount}</span>
+            `;
+        }
+
+        const initialData = getData();
+        fillUpbjjOptions(initialData);
+        render();
+
+        keywordInput.addEventListener("input", render);
+        upbjjFilter.addEventListener("change", render);
+        statusFilter.addEventListener("change", render);
+        resetBtn.addEventListener("click", () => {
+            keywordInput.value = "";
+            upbjjFilter.value = "";
+            statusFilter.value = "";
+            render();
+        });
+    </script>
+</body>
+
+</html>

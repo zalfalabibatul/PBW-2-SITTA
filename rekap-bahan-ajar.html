@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rekap Bahan Ajar</title>
+    <style>
+        * { box-sizing: border-box; font-family: Segoe UI, Arial, sans-serif }
+        body { margin: 0; padding: 18px; background: linear-gradient(180deg, #edf3ff, #e7effa); color: #1f2f4d }
+        .app { max-width: 1100px; margin: auto; background: #fff; border: 1px solid #dbe6fa; border-radius: 14px; box-shadow: 0 14px 34px rgba(21, 39, 84, .12); overflow: hidden }
+        .header { background: linear-gradient(135deg, #001a5c, #1f52b7); color: #fff; padding: 20px }
+        .header h1 { margin: 0 0 4px; font-size: 24px }
+        .content { padding: 16px }
+        .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 12px }
+        .card { background: #f6f9ff; border: 1px solid #dde7fa; border-radius: 10px; padding: 12px }
+        .card .label { font-size: 12px; color: #607293; text-transform: uppercase; letter-spacing: .04em }
+        .card .value { margin-top: 6px; font-size: 24px; font-weight: 800; color: #1f3d79 }
+        .table-wrap { overflow: auto; border: 1px solid #dde7fa; border-radius: 12px }
+        table { width: 100%; border-collapse: collapse; min-width: 860px }
+        th, td { border-bottom: 1px solid #edf1fa; padding: 10px; font-size: 13px; text-align: left }
+        th { background: #f3f7ff; color: #32486f; font-size: 12px; text-transform: uppercase; letter-spacing: .02em }
+        .actions { margin-top: 14px }
+        .actions a { text-decoration: none; color: #1a3a78; font-weight: 700 }
+        @media (max-width: 820px) { .cards { grid-template-columns: 1fr } }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <div class="header">
+            <h1>Rekap Bahan Ajar</h1>
+            <div>Ringkasan total stok dan nilai per UT-Daerah</div>
+        </div>
+        <div class="content">
+            <div id="cards" class="cards"></div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>UT-Daerah</th>
+                            <th>Jumlah Judul</th>
+                            <th>Total Qty</th>
+                            <th>Total Nilai Stok</th>
+                            <th>Item Menipis</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rows"></tbody>
+                </table>
+            </div>
+            <div class="actions"><a href="dashboard.html">&larr; Kembali ke Dashboard</a></div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script>
+        const cards = document.getElementById("cards");
+        const rows = document.getElementById("rows");
+
+        function toRupiah(value) {
+            return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(Number(value) || 0);
+        }
+
+        function getData() {
+            return JSON.parse(localStorage.getItem("stokBahanAjarVue")) || window.dataStokBahanAjar || [];
+        }
+
+        function render() {
+            const data = getData();
+            const grouped = {};
+
+            data.forEach(item => {
+                const key = item.upbjj || "Tidak Diketahui";
+                if (!grouped[key]) grouped[key] = { judul: 0, qty: 0, nilai: 0, low: 0 };
+                grouped[key].judul += 1;
+                grouped[key].qty += Number(item.qty || 0);
+                grouped[key].nilai += Number(item.qty || 0) * Number(item.harga || 0);
+                if (Number(item.qty) < Number(item.safety)) grouped[key].low += 1;
+            });
+
+            const allRows = Object.entries(grouped).sort((a, b) => a[0].localeCompare(b[0]));
+            const totalJudul = data.length;
+            const totalQty = data.reduce((s, i) => s + Number(i.qty || 0), 0);
+            const totalNilai = data.reduce((s, i) => s + Number(i.qty || 0) * Number(i.harga || 0), 0);
+
+            cards.innerHTML = `
+                <div class="card"><div class="label">Total Judul</div><div class="value">${totalJudul}</div></div>
+                <div class="card"><div class="label">Total Qty</div><div class="value">${totalQty}</div></div>
+                <div class="card"><div class="label">Total Nilai Stok</div><div class="value" style="font-size:20px">${toRupiah(totalNilai)}</div></div>
+            `;
+
+            rows.innerHTML = allRows.map(([upbjj, val]) => `
+                <tr>
+                    <td>${upbjj}</td>
+                    <td>${val.judul}</td>
+                    <td>${val.qty}</td>
+                    <td>${toRupiah(val.nilai)}</td>
+                    <td>${val.low}</td>
+                </tr>
+            `).join("");
+        }
+
+        render();
+    </script>
+</body>
+</html>
