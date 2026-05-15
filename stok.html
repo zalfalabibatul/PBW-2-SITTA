@@ -30,16 +30,18 @@
         }
         
         .header {
-            padding: 22px;
-            background: linear-gradient(135deg, #001a5c, #1f52b7);
+            padding: 16px 22px;
+            background: #0a2463;
             color: #fff;
-            text-align: center
+            text-align: left;
+            border-radius: 16px 16px 0 0;
         }
         
         .header h1 {
             margin: 0;
-            font-size: 24px;
-            font-weight: 700
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: .01em;
         }
         
         .header p {
@@ -56,20 +58,8 @@
         }
         
         .page-nav a {
-            display: inline-block;
-            padding: 8px 14px;
-            border-radius: 10px;
-            background: #fff;
-            border: 1px solid #d5def2;
-            color: #1a3a78;
-            font-weight: 700;
-            font-size: 14px;
             text-decoration: none;
-            box-shadow: 0 2px 8px rgba(21, 39, 84, .06);
-        }
-        
-        .page-nav a:hover {
-            background: #f4f7fe
+            display: inline-block;
         }
         
         .layout-split {
@@ -84,6 +74,64 @@
             min-width: 0;
         }
         
+        .main-panel {
+            background: #fafbfd;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px 16px 14px;
+        }
+        
+        .filter-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 14px;
+            align-items: flex-end;
+            margin-bottom: 12px;
+        }
+        
+        .filter-toolbar > div {
+            flex: 1 1 150px;
+            min-width: 0;
+        }
+        
+        .filter-toolbar > div.filter-search {
+            flex: 2 1 220px;
+        }
+        
+        .filter-search-input-row {
+            display: flex;
+            gap: 8px;
+            align-items: stretch;
+        }
+        
+        .filter-search-input-row input[type="search"] {
+            flex: 1 1 auto;
+            min-width: 0;
+            width: auto;
+        }
+        
+        .filter-search-input-row .btn-cari {
+            flex-shrink: 0;
+            padding: 10px 16px;
+            white-space: nowrap;
+        }
+        
+        .filter-toolbar .small {
+            margin-bottom: 4px;
+        }
+        
+        .filter-row-2 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+        
+        .filter-row-2 .btn-reset-filter {
+            margin-left: auto;
+        }
+        
         .col-sidebar {
             flex: 0 0 268px;
             min-width: 240px;
@@ -95,10 +143,6 @@
             grid-template-columns: repeat(4, minmax(160px, 1fr));
             gap: 12px;
             margin-bottom: 12px
-        }
-        
-        .grid-filters {
-            grid-template-columns: repeat(3, minmax(140px, 1fr))
         }
         
         .search-row {
@@ -123,6 +167,18 @@
             background: #fff;
             color: #1e2a44;
             transition: border-color .2s ease, box-shadow .2s ease;
+        }
+        
+        input[type="checkbox"],
+        input[type="radio"] {
+            width: auto;
+            min-width: 0;
+            flex-shrink: 0;
+            padding: 0;
+            border: none;
+            border-radius: 4px;
+            background: transparent;
+            box-shadow: none;
         }
         
         input:focus,
@@ -174,13 +230,41 @@
             align-items: center;
         }
         
+        .filter-row-2 label,
         .actions label {
-            background: #f4f7fe;
-            border: 1px solid #dce5f8;
-            border-radius: 10px;
-            padding: 8px 11px;
+            display: inline-flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 8px;
+            background: #f0f6ff;
+            border: 1px solid #b8cff5;
+            border-radius: 8px;
+            padding: 8px 12px;
             font-size: 13px;
-            color: #3a4d73;
+            color: #1e3a5f;
+            font-weight: 600;
+        }
+        
+        .filter-row-2 label input,
+        .actions label input {
+            margin-right: 0;
+            vertical-align: middle;
+        }
+        
+        .btn-reset-filter {
+            background: #dbeafe;
+            color: #0a2463;
+            border: 1px solid #93c5fd;
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background .15s ease;
+        }
+        
+        .btn-reset-filter:hover {
+            background: #bfdbfe;
         }
         
         table {
@@ -193,22 +277,35 @@
             border-collapse: collapse;
         }
         
+        .stok-table col.col-w-16 { width: 16%; }
+        .stok-table col.col-w-10 { width: 10%; }
+        .stok-table col.col-w-12 { width: 12%; }
+        .stok-table col.col-w-8 { width: 8%; }
+        .stok-table col.col-w-6 { width: 6%; }
+        .stok-table col.col-w-9 { width: 9%; }
+        .stok-table col.col-w-11 { width: 11%; }
+        
         .stok-table th,
         .stok-table td {
-            border-bottom: 1px solid #edf1fa;
-            padding: 8px 6px;
-            font-size: 12px;
+            border-bottom: 1px solid #dde4ee;
+            padding: 10px 8px;
+            font-size: 13px;
             text-align: left;
-            vertical-align: top;
+            vertical-align: middle;
             word-wrap: break-word;
             overflow-wrap: break-word;
+        }
+        
+        .stok-table td.cell-kode .judul-mk {
+            font-weight: 400;
+            color: #334155;
         }
         
         .stok-table th:nth-child(5),
         .stok-table th:nth-child(6),
         .stok-table td:nth-child(5),
         .stok-table td:nth-child(6) {
-            text-align: right;
+            text-align: center;
             white-space: nowrap;
             overflow-wrap: normal;
         }
@@ -227,9 +324,20 @@
         }
         
         .stok-table td:nth-child(9) {
-            font-size: 11px;
-            line-height: 1.35;
+            font-size: 12px;
+            line-height: 1.45;
             word-break: break-word;
+            color: #334155;
+        }
+        
+        .stok-table td:nth-child(9) .catatan-urgent {
+            color: #c2410c;
+            font-weight: 600;
+        }
+        
+        .stok-table td:nth-child(9) .catatan-muted {
+            color: #64748b;
+            font-style: italic;
         }
         
         .stok-table th:nth-child(10),
@@ -242,9 +350,24 @@
         }
         
         .stok-table td:nth-child(10) .btn {
-            padding: 6px 12px;
+            padding: 6px 14px;
             font-size: 12px;
             white-space: nowrap;
+        }
+        
+        .btn-edit-table {
+            background: #ffedd5;
+            color: #7c2d12;
+            border: 1px solid #fdba74;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background .15s ease;
+        }
+        
+        .btn-edit-table:hover {
+            background: #fed7aa;
+            transform: translateY(-1px);
         }
         
         .stok-table .badge {
@@ -263,26 +386,35 @@
         .stok-table thead th {
             position: sticky;
             top: 0;
-            background: #f3f7ff;
-            color: #344a74;
+            background: #e2e8f0;
+            color: #1e293b;
             font-size: 11px;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: .02em;
+            letter-spacing: .04em;
             z-index: 1;
-            box-shadow: 0 1px 0 #dde7fa;
+            box-shadow: inset 0 -1px 0 #cbd5e1;
         }
         
-        .stok-table tbody tr:hover {
-            background: #f9fbff
+        .stok-table tbody tr.stok-data-row.zebra-even {
+            background: #fff;
+        }
+        
+        .stok-table tbody tr.stok-data-row.zebra-odd {
+            background: #f1f5f9;
+        }
+        
+        .stok-table tbody tr.stok-data-row:hover {
+            background: #e8f0fc;
         }
         
         .table-wrap {
             width: 100%;
             min-width: 0;
-            overflow-x: hidden;
+            overflow-x: auto;
             overflow-y: auto;
-            border: 1px solid #dde7fa;
-            border-radius: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
             background: #fff;
             max-height: min(62vh, 640px);
         }
@@ -311,12 +443,20 @@
         }
         
         .edit-row {
-            background: #f8faff
+            background: #eef4ff !important;
+        }
+        
+        .edit-row:hover {
+            background: #e3ecfc !important;
         }
         
         .edit-row .grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
             margin-bottom: 8px;
+        }
+        
+        .edit-row .actions {
+            margin-bottom: 0;
         }
         
         .small {
@@ -436,19 +576,70 @@
         }
         
         .btn-save {
-            background: #92400e;
+            background: #1745a7;
             color: #fff;
-            box-shadow: 0 8px 18px rgba(146, 64, 14, .22)
+            box-shadow: 0 8px 20px rgba(23, 69, 167, .25)
         }
         
         .btn-save:hover {
-            background: #b45309
+            background: #123d96
         }
         
         .empty {
             text-align: center;
             padding: 15px;
             color: #6c7898
+        }
+        
+        .stock-summary {
+            margin: 0 0 10px;
+            font-size: 13px;
+            color: #43577f;
+            font-weight: 600;
+        }
+        
+        .filter-active-hint {
+            margin: 0 0 10px;
+            font-size: 12px;
+            color: #1a3a78;
+            background: #eef4ff;
+            border: 1px solid #c7d9fb;
+            border-radius: 8px;
+            padding: 8px 10px;
+        }
+        
+        .form-error {
+            display: block;
+            margin-top: 4px;
+            font-size: 11px;
+            color: #b91c1c;
+            font-weight: 600;
+        }
+        
+        .form-success {
+            margin: 0 0 10px;
+            font-size: 12px;
+            color: #15803d;
+            background: #dcfce7;
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            padding: 8px 10px;
+        }
+        
+        .input-invalid {
+            border-color: #f87171 !important;
+            box-shadow: 0 0 0 3px rgba(248, 113, 113, .15) !important;
+        }
+        
+        .btn-toggle-filter {
+            background: #f0f6ff;
+            color: #1a3a78;
+            border: 1px solid #b8cff5;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
         }
         
         @media (max-width: 768px) {
@@ -471,8 +662,10 @@
             .grid {
                 grid-template-columns: repeat(2, minmax(140px, 1fr))
             }
-            .grid-filters {
-                grid-template-columns: 1fr 1fr
+            .filter-row-2 .btn-reset-filter {
+                margin-left: 0;
+                width: 100%;
+                text-align: center;
             }
         }
         
@@ -486,9 +679,6 @@
             .grid {
                 grid-template-columns: 1fr
             }
-            .grid-filters {
-                grid-template-columns: 1fr
-            }
             .form-row-pair {
                 grid-template-columns: 1fr
             }
@@ -499,42 +689,58 @@
 <body>
     <div id="stok-app" class="app">
         <div class="header">
-            <h1>📚 Daftar Stok Bahan Ajar</h1>
+            <h1>Halaman Stok Bahan Ajar</h1>
         </div>
         <div class="content">
             <div class="page-nav">
-                <a href="dashboard.html">&larr; Dashboard</a>
+                <a href="dashboard.html" class="btn btn-secondary">Dashboard</a>
             </div>
             <div class="layout-split">
                 <div class="col-main">
-                    <div class="grid grid-filters">
-                        <div><label class="small">UT-Daerah</label><select v-model="filters.upbjj"><option value="">Semua</option><option v-for="u in upbjjOptions" :key="u" :value="u">{{ u }}</option></select></div>
-                        <div v-if="filters.upbjj"><label class="small">Kategori</label><select v-model="filters.kategori"><option value="">Semua</option><option v-for="k in kategoriOptions" :key="k" :value="k">{{ k }}</option></select></div>
-                        <div><label class="small">Urutkan</label><select v-model="filters.sortBy"><option value="judul">Judul</option><option value="qty">Stok</option><option value="harga">Harga</option></select></div>
+                    <div class="main-panel">
+                    <div class="filter-toolbar">
+                        <div class="filter-search">
+                            <label class="small" for="stok-search-keyword">Cari</label>
+                            <div class="filter-search-input-row">
+                                <input id="stok-search-keyword" v-model="filters.keyword" type="search" placeholder="Kode/Judul" autocomplete="off" @keydown.enter.prevent="scrollToTable">
+                                <button type="button" class="btn btn-primary btn-cari" @click="scrollToTable">Cari</button>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="small" for="stok-filter-upbjj">UT-Daerah</label>
+                            <select id="stok-filter-upbjj" v-model="filters.upbjj"><option value="">Semua</option><option v-for="u in upbjjOptions" :key="u" :value="u">{{ u }}</option></select>
+                        </div>
+                        <div v-if="filters.upbjj">
+                            <label class="small" for="stok-filter-kategori">Kategori</label>
+                            <select id="stok-filter-kategori" v-model="filters.kategori"><option value="">Semua</option><option v-for="k in kategoriOptions" :key="k" :value="k">{{ k }}</option></select>
+                        </div>
+                        <div>
+                            <label class="small" for="stok-filter-sort">Urutkan</label>
+                            <select id="stok-filter-sort" v-model="filters.sortBy"><option value="judul">Judul</option><option value="qty">Stok</option><option value="harga">Harga</option></select>
+                        </div>
                     </div>
-                    <div class="actions">
-                        <label><input type="checkbox" v-model="filters.onlyLow"> Stok &lt; safety</label>
-                        <label><input type="checkbox" v-model="filters.onlyZero"> Stok = 0</label>
-                        <button type="button" class="btn btn-secondary" @click="resetFilters">Reset filter</button>
+                    <div class="filter-row-2">
+                        <label><input type="checkbox" v-model="filters.onlyLow"> Stok di bawah safety stock</label>
+                        <label><input type="checkbox" v-model="filters.onlyZero"> Stok kosong</label>
+                        <button type="button" class="btn-toggle-filter" @click="showAdvancedFilters = !showAdvancedFilters">{{ showAdvancedFilters ? 'Sembunyikan' : 'Tampilkan' }} filter lanjutan</button>
+                        <button type="button" class="btn-reset-filter" @click="resetFilters">Reset Filter</button>
                     </div>
-                    <div class="search-row">
-                        <input v-model="filters.keyword" type="search" placeholder="Masukkan kode atau judul mata kuliah…" autocomplete="off">
-                        <button type="button" class="btn btn-primary" @click="scrollToTable">Cari</button>
-                        <button type="button" class="btn btn-secondary" @click="filters.keyword = ''">Reset</button>
-                    </div>
+                    <p class="stock-summary" v-text="stockSummaryText"></p>
+                    <p v-show="hasActiveFilters" class="filter-active-hint" v-text="activeFilterHint"></p>
+                    <p v-show="saveMessage" class="form-success" v-text="saveMessage"></p>
                     <div class="table-wrap" ref="tableWrap">
                         <table class="stok-table">
                             <colgroup>
-                                <col style="width: 16%">
-                                <col style="width: 10%">
-                                <col style="width: 12%">
-                                <col style="width: 8%">
-                                <col style="width: 6%">
-                                <col style="width: 6%">
-                                <col style="width: 9%">
-                                <col style="width: 11%">
-                                <col style="width: 12%">
-                                <col style="width: 10%">
+                                <col class="col-w-16">
+                                <col class="col-w-10">
+                                <col class="col-w-12">
+                                <col class="col-w-8">
+                                <col class="col-w-6">
+                                <col class="col-w-6">
+                                <col class="col-w-9">
+                                <col class="col-w-11">
+                                <col class="col-w-12">
+                                <col class="col-w-10">
                             </colgroup>
                             <thead>
                                 <tr>
@@ -542,7 +748,7 @@
                                     <th>Kategori</th>
                                     <th>UT-Daerah</th>
                                     <th>Lokasi Rak</th>
-                                    <th>Qty</th>
+                                    <th>Stok</th>
                                     <th>Safety</th>
                                     <th>Harga</th>
                                     <th>Status</th>
@@ -551,12 +757,15 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-if="filteredAndSortedStock.length === 0">
-                                    <td colspan="10" class="empty">Data tidak ditemukan.</td>
+                                <tr v-if="stockList.length === 0">
+                                    <td colspan="10" class="empty">Belum ada data stok. Tambahkan dari form di samping.</td>
                                 </tr>
-                                <template v-for="item in filteredAndSortedStock" :key="item.id">
-                            <tr>
-                                <td><strong>{{ item.kode }}</strong><br>{{ item.judul }}</td>
+                                <tr v-else-if="filteredAndSortedStock.length === 0">
+                                    <td colspan="10" class="empty">Data tidak ditemukan dengan filter saat ini.</td>
+                                </tr>
+                                <template v-else v-for="(item, index) in filteredAndSortedStock" :key="item.id">
+                            <tr class="stok-data-row" :class="index % 2 === 0 ? 'zebra-even' : 'zebra-odd'">
+                                <td class="cell-kode"><strong>{{ item.kode }}</strong><br><span class="judul-mk">{{ item.judul }}</span></td>
                                 <td>{{ item.kategori }}</td>
                                 <td>{{ item.upbjj }}</td>
                                 <td>{{ item.lokasiRak }}</td>
@@ -564,17 +773,21 @@
                                 <td>{{ item.safety }}</td>
                                 <td>{{ toRupiah(item.harga) }}</td>
                                 <td><span class="badge" :class="statusInfo(item).className">{{ statusInfo(item).icon }} {{ statusInfo(item).label }}</span></td>
-                                <td><span v-html="item.catatanHTML"></span></td>
-                                <td><button class="btn btn-warning" @click="startEdit(item)">Edit</button></td>
+                                <td>
+                                    <span v-if="item.catatanHTML" v-html="item.catatanHTML"></span>
+                                    <span v-else v-text="'—'"></span>
+                                </td>
+                                <td><button type="button" class="btn-edit-table" @click="startEdit(item)">Edit</button></td>
                             </tr>
                             <tr v-if="editingId === item.id" class="edit-row">
                                 <td colspan="10">
                                     <div class="grid">
-                                        <div><label class="small">Qty</label><input type="number" min="0" v-model.number="editForm.qty"></div>
-                                        <div><label class="small">Safety</label><input type="number" min="0" v-model.number="editForm.safety"></div>
-                                        <div><label class="small">Harga</label><input type="number" min="0" v-model.number="editForm.harga"></div>
-                                        <div><label class="small">Catatan HTML</label><input v-model="editForm.catatanHTML"></div>
+                                        <div><label class="small" for="stok-edit-qty">Stok</label><input id="stok-edit-qty" type="number" min="0" v-model.number="editForm.qty" placeholder="0"></div>
+                                        <div><label class="small" for="stok-edit-safety">Safety</label><input id="stok-edit-safety" type="number" min="0" v-model.number="editForm.safety" placeholder="0"></div>
+                                        <div><label class="small" for="stok-edit-harga">Harga</label><input id="stok-edit-harga" type="number" min="0" v-model.number="editForm.harga" placeholder="0"></div>
+                                        <div><label class="small" for="stok-edit-catatan">Catatan</label><input id="stok-edit-catatan" v-model="editForm.catatanHTML" placeholder="HTML catatan"></div>
                                     </div>
+                                    <p v-if="editErrors.general" class="form-error" v-text="editErrors.general"></p>
                                     <div class="actions">
                                         <button class="btn btn-primary" @click="saveEdit(item.id)">Simpan</button>
                                         <button class="btn btn-danger" @click="cancelEdit">Batal</button>
@@ -585,22 +798,23 @@
                             </tbody>
                         </table>
                     </div>
+                    </div>
                 </div>
                 <aside class="col-sidebar">
                     <div class="form-add">
                         <h3><span class="form-plus" aria-hidden="true">+</span> Tambah stok baru</h3>
                         <div class="form-fields">
-                            <div><label class="small">Kode mata kuliah</label><input v-model="newItem.kode" placeholder="contoh: EKMA4216"></div>
-                            <div><label class="small">Judul mata kuliah</label><input v-model="newItem.judul" placeholder="Judul lengkap"></div>
-                            <div><label class="small">Kategori</label><select v-model="newItem.kategori"><option value="">— Pilih kategori —</option><option v-for="k in allKategoriOptions" :key="k" :value="k">{{ k }}</option></select></div>
-                            <div><label class="small">UT-Daerah</label><select v-model="newItem.upbjj"><option value="">— Pilih UT-Daerah —</option><option v-for="u in upbjjOptions" :key="u" :value="u">{{ u }}</option></select></div>
-                            <div><label class="small">Lokasi rak</label><input v-model="newItem.lokasiRak" placeholder="contoh: RAK-A1"></div>
+                            <div><label class="small" for="stok-new-kode">Kode mata kuliah</label><input id="stok-new-kode" v-model="newItem.kode" :class="{ 'input-invalid': formErrors.kode }" placeholder="Contoh: EKMA4216"><span v-if="formErrors.kode" class="form-error" v-text="formErrors.kode"></span></div>
+                            <div><label class="small" for="stok-new-judul">Judul mata kuliah</label><input id="stok-new-judul" v-model="newItem.judul" placeholder="Judul lengkap"></div>
+                            <div><label class="small" for="stok-new-kategori">Kategori</label><select id="stok-new-kategori" v-model="newItem.kategori"><option value="">— Pilih kategori —</option><option v-for="k in allKategoriOptions" :key="k" :value="k">{{ k }}</option></select></div>
+                            <div><label class="small" for="stok-new-upbjj">UT-Daerah</label><select id="stok-new-upbjj" v-model="newItem.upbjj"><option value="">— Pilih UT-Daerah —</option><option v-for="u in upbjjOptions" :key="u" :value="u">{{ u }}</option></select></div>
+                            <div><label class="small" for="stok-new-lokasi">Lokasi rak</label><input id="stok-new-lokasi" v-model="newItem.lokasiRak" placeholder="Contoh: RAK-A1"></div>
                             <div class="form-row-pair">
-                                <div><label class="small">Qty</label><input type="number" min="0" v-model.number="newItem.qty"></div>
-                                <div><label class="small">Safety</label><input type="number" min="0" v-model.number="newItem.safety"></div>
+                                <div><label class="small" for="stok-new-qty">Stok</label><input id="stok-new-qty" type="number" min="0" v-model.number="newItem.qty" placeholder="0" title="Jumlah stok"></div>
+                                <div><label class="small" for="stok-new-safety">Safety</label><input id="stok-new-safety" type="number" min="0" v-model.number="newItem.safety" placeholder="0" title="Batas stok aman"></div>
                             </div>
-                            <div><label class="small">Harga</label><input type="number" min="0" v-model.number="newItem.harga"></div>
-                            <div><label class="small">Catatan (HTML)</label><textarea v-model="newItem.catatanHTML" placeholder="tambahkan catatan"></textarea></div>
+                            <div><label class="small" for="stok-new-harga">Harga</label><input id="stok-new-harga" type="number" min="0" v-model.number="newItem.harga" placeholder="0" title="Harga per unit"></div>
+                            <div><label class="small" for="stok-new-catatan">Catatan</label><textarea id="stok-new-catatan" v-model="newItem.catatanHTML" placeholder="Tambahkan catatan"></textarea></div>
                             <div class="form-actions">
                                 <button type="button" class="btn btn-save" @click="addItem">Simpan</button>
                                 <button type="button" class="btn btn-secondary" @click="resetNewForm">Reset</button>
@@ -613,207 +827,7 @@
     </div>
 
     <script src="js/data.js"></script>
-    <script>
-        const {
-            createApp
-        } = Vue;
-        createApp({
-            data() {
-                return {
-                    stockList: [],
-                    filters: {
-                        keyword: "",
-                        upbjj: "",
-                        kategori: "",
-                        onlyLow: false,
-                        onlyZero: false,
-                        sortBy: "judul"
-                    },
-                    editingId: null,
-                    editForm: {
-                        qty: 0,
-                        safety: 0,
-                        harga: 0,
-                        catatanHTML: ""
-                    },
-                    newItem: {
-                        kode: "",
-                        judul: "",
-                        kategori: "",
-                        upbjj: "",
-                        lokasiRak: "",
-                        qty: 0,
-                        safety: 0,
-                        harga: 0,
-                        catatanHTML: ""
-                    }
-                };
-            },
-            mounted() {
-                const saved = localStorage.getItem("stokBahanAjarVue");
-                const fallback = () => JSON.parse(JSON.stringify(window.dataStokBahanAjar || []));
-                if (saved) {
-                    try {
-                        const parsed = JSON.parse(saved);
-                        if (Array.isArray(parsed) && parsed.length > 0) {
-                            this.stockList = parsed;
-                        } else {
-                            this.stockList = fallback();
-                        }
-                    } catch (error) {
-                        this.stockList = fallback();
-                    }
-                } else {
-                    this.stockList = fallback();
-                }
-            },
-            computed: {
-                upbjjOptions() {
-                    return [...new Set((window.upbjjList || []).map(item => item.nama))];
-                },
-                allKategoriOptions() {
-                    const set = new Set();
-                    (window.upbjjList || []).forEach(entry => (entry.kategoriList || []).forEach(k => set.add(k)));
-                    return [...set].sort();
-                },
-                kategoriOptions() {
-                    if (!this.filters.upbjj) return [];
-                    const selected = (window.upbjjList || []).find(item => item.nama === this.filters.upbjj);
-                    return selected ? selected.kategoriList : [];
-                },
-                filteredAndSortedStock() {
-                    let result = [...this.stockList];
-                    const keyword = this.filters.keyword.trim().toLowerCase();
-                    if (keyword) {
-                        result = result.filter(item => {
-                            const k = String(item.kode || "").toLowerCase();
-                            const j = String(item.judul || "").toLowerCase();
-                            return k.includes(keyword) || j.includes(keyword);
-                        });
-                    }
-                    if (this.filters.upbjj) result = result.filter(item => item.upbjj === this.filters.upbjj);
-                    if (this.filters.kategori) result = result.filter(item => item.kategori === this.filters.kategori);
-                    if (this.filters.onlyLow) result = result.filter(item => Number(item.qty) < Number(item.safety));
-                    if (this.filters.onlyZero) result = result.filter(item => Number(item.qty) === 0);
-                    result.sort((a, b) => {
-                        if (this.filters.sortBy === "judul") {
-                            return String(a.judul || "").localeCompare(String(b.judul || ""));
-                        }
-                        return Number(a[this.filters.sortBy]) - Number(b[this.filters.sortBy]);
-                    });
-                    return result;
-                }
-            },
-            watch: {
-                "filters.upbjj" () {
-                    this.filters.kategori = "";
-                },
-                stockList: {
-                    deep: true,
-                    handler(newValue) {
-                        localStorage.setItem("stokBahanAjarVue", JSON.stringify(newValue));
-                    }
-                }
-            },
-            methods: {
-                scrollToTable() {
-                    this.$refs.tableWrap?.scrollIntoView({
-                        behavior: "smooth",
-                        block: "nearest"
-                    });
-                },
-                toRupiah(value) {
-                    return new Intl.NumberFormat("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
-                        maximumFractionDigits: 0
-                    }).format(Number(value) || 0);
-                },
-                statusInfo(item) {
-                    if (Number(item.qty) === 0) return {
-                        label: "Kosong",
-                        className: "kosong",
-                        icon: "⛔"
-                    };
-                    if (Number(item.qty) < Number(item.safety)) return {
-                        label: "Menipis",
-                        className: "menipis",
-                        icon: "⚠️"
-                    };
-                    return {
-                        label: "Aman",
-                        className: "aman",
-                        icon: "✅"
-                    };
-                },
-                resetFilters() {
-                    this.filters = {
-                        keyword: "",
-                        upbjj: "",
-                        kategori: "",
-                        onlyLow: false,
-                        onlyZero: false,
-                        sortBy: "judul"
-                    };
-                },
-                startEdit(item) {
-                    this.editingId = item.id;
-                    this.editForm = {
-                        qty: Number(item.qty),
-                        safety: Number(item.safety),
-                        harga: Number(item.harga),
-                        catatanHTML: item.catatanHTML || ""
-                    };
-                },
-                cancelEdit() {
-                    this.editingId = null;
-                },
-                saveEdit(id) {
-                    if (this.editForm.qty < 0 || this.editForm.safety < 0 || this.editForm.harga < 0) return alert("Nilai qty/safety/harga tidak boleh negatif.");
-                    const idx = this.stockList.findIndex(item => item.id === id);
-                    if (idx === -1) return;
-                    this.stockList[idx] = {...this.stockList[idx],
-                        ...this.editForm
-                    };
-                    this.editingId = null;
-                },
-                addItem() {
-                    const required = ["kode", "judul", "kategori", "upbjj", "lokasiRak", "catatanHTML"];
-                    const isMissing = required.some(key => !String(this.newItem[key] || "").trim());
-                    if (isMissing) return alert("Semua field wajib diisi.");
-                    if (this.newItem.qty < 0 || this.newItem.safety < 0 || this.newItem.harga < 0) return alert("Qty, safety, dan harga tidak boleh negatif.");
-                    const exists = this.stockList.some(item => String(item.kode || "").toLowerCase() === this.newItem.kode.trim().toLowerCase());
-                    if (exists) return alert("Kode mata kuliah sudah ada.");
-                    this.stockList.push({
-                        id: Date.now(),
-                        kode: this.newItem.kode.trim().toUpperCase(),
-                        judul: this.newItem.judul.trim(),
-                        kategori: this.newItem.kategori.trim(),
-                        upbjj: this.newItem.upbjj,
-                        lokasiRak: this.newItem.lokasiRak.trim(),
-                        qty: Number(this.newItem.qty),
-                        safety: Number(this.newItem.safety),
-                        harga: Number(this.newItem.harga),
-                        catatanHTML: this.newItem.catatanHTML.trim()
-                    });
-                    this.resetNewForm();
-                },
-                resetNewForm() {
-                    this.newItem = {
-                        kode: "",
-                        judul: "",
-                        kategori: "",
-                        upbjj: "",
-                        lokasiRak: "",
-                        qty: 0,
-                        safety: 0,
-                        harga: 0,
-                        catatanHTML: ""
-                    };
-                }
-            }
-        }).mount("#stok-app");
-    </script>
+    <script src="js/stok-app.js"></script>
 </body>
 
 </html>

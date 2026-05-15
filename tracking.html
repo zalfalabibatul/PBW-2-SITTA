@@ -7,11 +7,8 @@
     <title>Tracking DO - Vue</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
     <style>
-        * {
-            box-sizing: border-box;
-            font-family: Segoe UI, Arial, sans-serif
-        }
-        
+        * { box-sizing: border-box; font-family: Segoe UI, Arial, sans-serif }
+
         body {
             margin: 0;
             background: linear-gradient(180deg, #edf3ff, #e7effa);
@@ -19,7 +16,7 @@
             padding: 20px;
             line-height: 1.45;
         }
-        
+
         .app {
             max-width: 1100px;
             margin: auto;
@@ -29,43 +26,43 @@
             border: 1px solid #dfe7f7;
             box-shadow: 0 16px 38px rgba(21, 39, 84, .14);
         }
-        
+
         .header {
-            padding: 22px;
-            background: linear-gradient(135deg, #001a5c, #1f52b7);
+            padding: 20px 22px;
+            background: #0a2463;
             color: #fff;
         }
-        
+
         .header h1 {
-            margin: 0 0 4px;
-            font-size: 24px
+            margin: 0;
+            font-size: 22px;
+            font-weight: 700;
         }
-        
-        .header div {
-            opacity: .9;
-            font-size: 14px
+
+        .content { padding: 18px 20px 22px }
+
+        .page-nav { margin-bottom: 14px }
+
+        .page-nav a {
+            text-decoration: none;
+            display: inline-block;
         }
-        
-        .content {
-            padding: 18px
-        }
-        
+
         .grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(160px, 1fr));
-            gap: 12px
+            gap: 12px 14px;
         }
-        
+
         label {
             display: block;
             font-size: 12px;
             font-weight: 600;
             color: #52627e;
-            margin-bottom: 5px
+            margin-bottom: 5px;
         }
-        
-        input,
-        select {
+
+        input, select {
             width: 100%;
             padding: 10px 11px;
             border: 1px solid #d5def2;
@@ -74,153 +71,178 @@
             color: #1e2a44;
             transition: border-color .2s ease, box-shadow .2s ease;
         }
-        
-        input:focus,
-        select:focus {
+
+        input[readonly] {
+            background: #f8fafc;
+            color: #475569;
+        }
+
+        input:focus, select:focus {
             outline: none;
             border-color: #3b6ac9;
             box-shadow: 0 0 0 3px rgba(59, 106, 201, .15);
         }
-        
+
         .btn {
             border: none;
             border-radius: 10px;
-            padding: 10px 14px;
+            padding: 10px 16px;
             font-weight: 700;
+            font-size: 13px;
             cursor: pointer;
             transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
         }
-        
-        .btn:hover {
-            transform: translateY(-1px)
-        }
-        
+
+        .btn:hover { transform: translateY(-1px) }
+
         .btn-primary {
             background: #1745a7;
             color: #fff;
-            box-shadow: 0 8px 20px rgba(23, 69, 167, .25)
+            box-shadow: 0 8px 20px rgba(23, 69, 167, .25);
         }
-        
+
         .btn-secondary {
             background: #e9f0fe;
-            color: #1a3a78
+            color: #1a3a78;
         }
-        
+
         .panel {
-            margin-top: 14px;
-            padding: 14px;
+            margin-top: 0;
+            padding: 16px;
             border: 1px solid #d8e4fb;
             border-radius: 12px;
             background: #f7faff;
         }
-        
+
         .panel h3 {
-            margin: 0 0 12px;
-            color: #1f3566
+            margin: 0 0 14px;
+            color: #1f3566;
+            font-size: 15px;
         }
-        
+
+        .panel-form-actions {
+            margin-top: 12px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
         .table-wrap {
             overflow: auto;
             border: 1px solid #dde7fa;
             border-radius: 12px;
-            margin-top: 14px;
+            margin-top: 16px;
             background: #fff;
         }
-        
+
         table {
             width: 100%;
             border-collapse: collapse;
-            min-width: 850px
+            min-width: 850px;
         }
-        
-        th,
-        td {
+
+        th, td {
             border-bottom: 1px solid #edf1fa;
-            padding: 10px;
+            padding: 11px 10px;
             font-size: 13px;
             text-align: left;
-            vertical-align: top;
+            vertical-align: middle;
         }
-        
+
         thead th {
             position: sticky;
             top: 0;
-            background: #f3f7ff;
+            background: #e8f0fc;
             color: #344a74;
-            font-size: 12px;
+            font-size: 11px;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: .02em;
+            letter-spacing: .04em;
         }
-        
-        tbody tr:hover {
-            background: #f9fbff
-        }
-        
+
+        tbody tr:hover { background: #f9fbff }
+
         .status-badge {
             display: inline-block;
             font-size: 12px;
             font-weight: 700;
-            padding: 4px 10px;
+            padding: 5px 12px;
             border-radius: 999px;
+            white-space: nowrap;
         }
-        
-        .status-diproses {
-            background: #fff7dd;
-            color: rgb(76, 5, 5)
-        }
-        
-        .status-dikirim {
-            background: #fff7dd;
-            color: #9a6700
-        }
-        
-        .status-dalam-perjalanan {
-            background: #dff3ff;
-            color: rgb(202, 46, 82)
-        }
-        
-        .status-diterima {
-            background: #dcfce7;
-            color: rgb(38, 111, 66)
-        }
-        
-        .status-selesai {
-            background: #dcfce7;
-            color: rgb(2, 69, 22)
-        }
-        
-        .status-default {
-            background: #eaf0ff;
-            color: rgb(22, 67, 106)
-        }
-        
+
+        .status-diproses { background: #fff7dd; color: #9a6700 }
+        .status-dalam-perjalanan { background: #dff3ff; color: #1d4ed8 }
+        .status-dikirim { background: #fff7dd; color: #9a6700 }
+        .status-diterima, .status-selesai { background: #dcfce7; color: #15803d }
+        .status-default { background: #eaf0ff; color: #1e40af }
+
         .empty {
             text-align: center;
             color: #6a7894;
-            padding: 16px
+            padding: 18px;
         }
-        
-        .muted {
+
+        .muted { font-size: 12px; color: #64748b }
+
+        .do-summary {
+            margin: 0 0 12px;
+            font-size: 13px;
+            color: #43577f;
+            font-weight: 600;
+        }
+
+        .form-error {
+            display: block;
+            margin-top: 4px;
+            font-size: 11px;
+            color: #b91c1c;
+            font-weight: 600;
+        }
+
+        .form-success {
+            margin: 0 0 12px;
             font-size: 12px;
-            color: #64748b
+            color: #15803d;
+            background: #dcfce7;
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            padding: 8px 10px;
         }
-        
+
+        .input-invalid {
+            border-color: #f87171 !important;
+            box-shadow: 0 0 0 3px rgba(248, 113, 113, .15) !important;
+        }
+
+        .panel-paket-detail {
+            margin-top: 12px;
+            padding: 12px;
+            border: 1px dashed #c7d9fb;
+            border-radius: 10px;
+            background: #fff;
+            font-size: 13px;
+        }
+
+        .panel-paket-detail ul { margin: 6px 0 0 20px }
+
+        .panel-paket-total { margin-top: 8px }
+
+        .panel-paket-empty {
+            margin-top: 10px;
+            font-size: 12px;
+            color: #64748b;
+            font-style: italic;
+        }
+
         @media (max-width: 900px) {
-            .grid {
-                grid-template-columns: repeat(2, minmax(140px, 1fr))
-            }
+            .grid { grid-template-columns: repeat(2, minmax(140px, 1fr)) }
         }
-        
+
         @media (max-width: 600px) {
-            body {
-                padding: 10px
-            }
-            .content {
-                padding: 12px
-            }
-            .grid {
-                grid-template-columns: 1fr
-            }
+            body { padding: 10px }
+            .content { padding: 12px }
+            .grid { grid-template-columns: 1fr }
         }
     </style>
 </head>
@@ -228,32 +250,74 @@
 <body>
     <div id="tracking-app" class="app">
         <div class="header">
-            <h1 style="margin:0 0 6px">Tracking Delivery Order (DO)</h1>
+            <h1>Tracking Delivery Order (DO)</h1>
         </div>
         <div class="content">
+            <div class="page-nav">
+                <a href="dashboard.html" class="btn btn-secondary">Dashboard</a>
+            </div>
+
+            <p class="do-summary" v-text="doSummaryText"></p>
+            <p v-show="saveMessage" class="form-success" v-text="saveMessage"></p>
+
             <div class="panel">
-                <h3 style="margin:0 0 10px">Tambah Delivery Order Baru</h3>
+                <h3>Tambah Delivery Order Baru</h3>
                 <div class="grid">
-                    <div><label>Nomor DO (otomatis)</label><input :value="nextDoNumber" readonly></div>
-                    <div><label>NIM</label><input v-model="newDO.nim" placeholder="isi NIM"></div>
-                    <div><label>Nama</label><input v-model="newDO.nama" placeholder="isi Nama"></div>
-                    <div><label>Ekspedisi</label><select v-model="newDO.ekspedisi"><option value="">Pilih</option><option v-for="opt in ekspedisiOptions" :key="opt" :value="opt">{{ opt }}</option></select></div>
-                    <div><label>Paket Bahan Ajar</label><select v-model="newDO.paketKode"><option value="">Pilih paket</option><option v-for="p in paketListData" :key="p.kodePaket" :value="p.kodePaket">{{ p.kodePaket }} - {{ p.namaPaket }}</option></select></div>
-                    <div><label>Tanggal Kirim</label><input type="date" v-model="newDO.tanggalKirim"></div>
+                    <div>
+                        <label for="do-next-num">Nomor DO (otomatis)</label>
+                        <input id="do-next-num" v-bind:value="nextDoNumber" readonly title="Nomor DO berikutnya">
+                    </div>
+                    <div>
+                        <label for="do-nim">NIM</label>
+                        <input id="do-nim" v-model="newDO.nim" v-bind:class="{ 'input-invalid': formErrors.nim }" placeholder="Isi NIM">
+                        <span v-if="formErrors.nim" class="form-error" v-text="formErrors.nim"></span>
+                    </div>
+                    <div>
+                        <label for="do-nama">Nama</label>
+                        <input id="do-nama" v-model="newDO.nama" v-bind:class="{ 'input-invalid': formErrors.nama }" placeholder="Isi Nama">
+                        <span v-if="formErrors.nama" class="form-error" v-text="formErrors.nama"></span>
+                    </div>
+                    <div>
+                        <label for="do-ekspedisi">Ekspedisi</label>
+                        <select id="do-ekspedisi" v-model="newDO.ekspedisi" v-bind:class="{ 'input-invalid': formErrors.ekspedisi }" title="Pilih ekspedisi">
+                            <option value="">Pilih</option>
+                            <option v-for="p in pengirimanList" v-bind:key="p.kode" v-bind:value="p.nama">{{ p.nama }}</option>
+                        </select>
+                        <span v-if="formErrors.ekspedisi" class="form-error" v-text="formErrors.ekspedisi"></span>
+                    </div>
+                    <div>
+                        <label for="do-paket">Paket Bahan Ajar</label>
+                        <select id="do-paket" v-model="newDO.paketKode" v-bind:class="{ 'input-invalid': formErrors.paketKode }" title="Pilih paket bahan ajar">
+                            <option value="">Pilih paket</option>
+                            <option v-for="p in paketList" v-bind:key="p.kode" v-bind:value="p.kode">{{ p.kode }} - {{ p.nama }}</option>
+                        </select>
+                        <span v-if="formErrors.paketKode" class="form-error" v-text="formErrors.paketKode"></span>
+                    </div>
+                    <div>
+                        <label for="do-tanggal">Tanggal Kirim</label>
+                        <input id="do-tanggal" type="date" v-model="newDO.tanggalKirim" title="Tanggal pengiriman">
+                    </div>
                 </div>
-                <div class="panel" v-if="selectedPaket" style="margin-top:10px">
-                    <strong>Detail Paket:</strong> {{ selectedPaket.kodePaket }} - {{ selectedPaket.namaPaket }}<br>
-                    <span class="muted">Isi paket:</span>
-                    <ul style="margin:6px 0 0 20px">
-                        <li v-for="item in selectedPaket.daftarBahanAjar" :key="item">{{ item }}</li>
+
+                <div class="panel-paket-detail" v-if="selectedPaket">
+                    <strong>Detail Paket:</strong> {{ selectedPaket.kode }} - {{ selectedPaket.nama }}<br>
+                    <span class="muted" v-text="'Isi paket:'"></span>
+                    <ul>
+                        <li v-for="kode in selectedPaket.isi" v-bind:key="kode">
+                            <span v-html="labelBahanHtml(kode)"></span>
+                        </li>
                     </ul>
-                    <div style="margin-top:8px"><strong>Total Harga:</strong> {{ toRupiah(selectedPaket.harga) }}</div>
+                    <div class="panel-paket-total"><strong>Total Harga:</strong> {{ toRupiah(selectedPaket.harga) }}</div>
                 </div>
-                <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
-                    <button class="btn btn-primary" @click="addDO">Tambah DO</button>
-                    <button class="btn btn-secondary" @click="resetForm">Reset Form</button>
+                <p v-else-if="newDO.paketKode" class="panel-paket-empty" v-text="'Paket tidak ditemukan.'"></p>
+                <p v-else class="panel-paket-empty" v-text="'Pilih paket untuk melihat detail isi dan harga.'"></p>
+
+                <div class="panel-form-actions">
+                    <button type="button" class="btn btn-primary" v-on:click="addDO">Tambah DO</button>
+                    <button type="button" class="btn btn-secondary" v-on:click="resetForm">Reset Form</button>
                 </div>
             </div>
+
             <div class="table-wrap">
                 <table>
                     <thead>
@@ -272,130 +336,29 @@
                         <tr v-if="trackingList.length === 0">
                             <td colspan="8" class="empty">Belum ada data Delivery Order. Tambahkan data baru di form atas.</td>
                         </tr>
-                        <tr v-for="item in trackingList" :key="item.nomorDO">
-                            <td>{{ item.nomorDO }}</td>
-                            <td>{{ item.nim }}</td>
-                            <td>{{ item.nama }}</td>
-                            <td>{{ item.ekspedisi }}</td>
-                            <td>{{ item.paketKode }}</td>
-                            <td>{{ item.tanggalKirim }}</td>
-                            <td>{{ toRupiah(item.totalHarga) }}</td>
-                            <td><span class="status-badge" :class="statusClass(item.status)">{{ item.status }}</span></td>
-                        </tr>
+                        <template v-else>
+                            <tr v-for="item in trackingList" v-bind:key="item.nomorDO">
+                                <td>{{ item.nomorDO }}</td>
+                                <td>{{ item.nim }}</td>
+                                <td>{{ item.nama }}</td>
+                                <td>{{ item.ekspedisi }}</td>
+                                <td>{{ item.paketKode }}</td>
+                                <td>{{ item.tanggalKirim }}</td>
+                                <td>{{ toRupiah(item.totalHarga) }}</td>
+                                <td>
+                                    <span class="status-badge" v-bind:class="statusClass(item.status)" v-text="item.status"></span>
+                                </td>
+                            </tr>
+                        </template>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+
     <script src="js/data.js"></script>
-    <script>
-        const {
-            createApp
-        } = Vue;
-        createApp({
-            data() {
-                return {
-                    trackingList: [],
-                    paketListData: JSON.parse(JSON.stringify(window.paketList || [])),
-                    ekspedisiOptions: ["JNE Regular", "JNE Express"],
-                    newDO: {
-                        nim: "",
-                        nama: "",
-                        ekspedisi: "",
-                        paketKode: "",
-                        tanggalKirim: new Date().toISOString().slice(0, 10)
-                    }
-                };
-            },
-            mounted() {
-                const saved = localStorage.getItem("trackingDOVue");
-                const fallback = () => JSON.parse(JSON.stringify(window.trackingDOList || []));
-                if (saved) {
-                    try {
-                        const parsed = JSON.parse(saved);
-                        this.trackingList = Array.isArray(parsed) ? parsed : fallback();
-                    } catch (error) {
-                        this.trackingList = fallback();
-                    }
-                } else {
-                    this.trackingList = fallback();
-                }
-            },
-            computed: {
-                selectedPaket() {
-                    return this.paketListData.find(item => item.kodePaket === this.newDO.paketKode) || null;
-                },
-                nextDoNumber() {
-                    const year = new Date().getFullYear();
-                    const prefix = `DO${year}-`;
-                    let maxSeq = 0;
-                    this.trackingList.forEach(item => {
-                        if (item.nomorDO && item.nomorDO.startsWith(prefix)) {
-                            const seq = Number(item.nomorDO.split("-")[1]);
-                            if (!Number.isNaN(seq) && seq > maxSeq) maxSeq = seq;
-                        }
-                    });
-                    const nextSeq = String(maxSeq + 1).padStart(3, "0");
-                    return `${prefix}${nextSeq}`;
-                }
-            },
-            watch: {
-                trackingList: {
-                    deep: true,
-                    handler(newValue) {
-                        localStorage.setItem("trackingDOVue", JSON.stringify(newValue));
-                    }
-                }
-            },
-            methods: {
-                toRupiah(value) {
-                    return new Intl.NumberFormat("id-ID", {
-                        style: "currency",
-                        currency: "IDR",
-                        maximumFractionDigits: 0
-                    }).format(Number(value) || 0);
-                },
-                statusClass(status) {
-                    const normalized = String(status || "").toLowerCase();
-                    if (normalized.includes("proses")) return "status-diproses";
-                    if (normalized.includes("perjalanan")) return "status-dalam-perjalanan";
-                    if (normalized.includes("kirim")) return "status-dikirim";
-                    if (normalized.includes("terima")) return "status-diterima";
-                    if (normalized.includes("selesai")) return "status-selesai";
-                    return "status-default";
-                },
-                addDO() {
-                    if (!this.newDO.nim.trim() || !this.newDO.nama.trim() || !this.newDO.ekspedisi || !this.newDO.paketKode || !this.newDO.tanggalKirim) {
-                        return alert("Semua field wajib diisi.");
-                    }
-                    if (!/^\d{8,15}$/.test(this.newDO.nim.trim())) {
-                        return alert("NIM harus berupa angka 8-15 digit.");
-                    }
-                    if (!this.selectedPaket) return alert("Paket tidak valid.");
-                    this.trackingList.push({
-                        nomorDO: this.nextDoNumber,
-                        nim: this.newDO.nim.trim(),
-                        nama: this.newDO.nama.trim(),
-                        ekspedisi: this.newDO.ekspedisi,
-                        paketKode: this.newDO.paketKode,
-                        tanggalKirim: this.newDO.tanggalKirim,
-                        totalHarga: this.selectedPaket.harga,
-                        status: "Diproses"
-                    });
-                    this.resetForm();
-                },
-                resetForm() {
-                    this.newDO = {
-                        nim: "",
-                        nama: "",
-                        ekspedisi: "",
-                        paketKode: "",
-                        tanggalKirim: new Date().toISOString().slice(0, 10)
-                    };
-                }
-            }
-        }).mount("#tracking-app");
-    </script>
+    <script src="js/dataBahanAjar.js"></script>
+    <script src="js/tracking-app.js"></script>
 </body>
 
 </html>

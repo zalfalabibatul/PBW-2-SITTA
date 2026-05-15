@@ -13,9 +13,15 @@
 
 <body>
     <div class="video-background">
-        <video autoplay muted loop playsinline id="bg-video">
+        <video autoplay muted loop id="bg-video">
             <source src="assets/new-bg.mp4" type="video/mp4">
         </video>
+        <script>
+            (function () {
+                var v = document.getElementById("bg-video");
+                if (v && v.setAttribute) v.setAttribute("playsinline", "");
+            })();
+        </script>
     </div>
     <div class="wrapper">
         <form action="">
@@ -26,7 +32,7 @@
             <div class="input-group">
 
                 <i class="input-logo" data-feather="user"></i>
-                <input type="text" id="emai" placeholder="Email" required>
+                <input type="text" id="email" placeholder="Email" required>
             </div>
             <div class="input-group">
                 <input type="password" id="password" placeholder="Password">
